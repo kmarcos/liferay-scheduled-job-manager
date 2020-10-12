@@ -1,10 +1,6 @@
-.*
-!.gitignore
-*classes/
-*~
-/build.*.properties
-/dist/
+.classpath
+.gradle/
+.project
+.settings/
 build/
-/lib/
-*.iml
-ivy.xml.MD5
+/target/
