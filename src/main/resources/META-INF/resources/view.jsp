@@ -64,9 +64,18 @@
 				</div>
 			</fieldset>
 			
-			<liferay-ui:search-container delta="5" deltaConfigurable="<%= true %>" id="schedulerJobListContainer" emptyResultsMessage="scheduled.job.manager.empty" total="<%= schedulerJobBeans.size() %>" orderByCol="<%= orderByCol %>" orderByType="<%= orderByType %>">
+			<liferay-ui:search-container
+				delta="5"
+				deltaConfigurable="<%= true %>"
+				id="schedulerJobListContainer"
+				emptyResultsMessage="scheduled.job.manager.empty"
+				total="<%= schedulerJobBeans.size() %>"
+				orderByCol="<%= orderByCol %>"
+				orderByType="<%= orderByType %>"
+			>
 				
-				<liferay-ui:search-container-results results="<%= QuartzSchedulerUtil.subList(schedulerJobBeans, searchContainer.getStart(), searchContainer.getEnd()) %>" />
+				<liferay-ui:search-container-results
+					results="<%= QuartzSchedulerUtil.subList(schedulerJobBeans, searchContainer.getStart(), searchContainer.getEnd()) %>" />
 						
 					<liferay-ui:search-container-row className="com.rivetlogic.quartz.bean.impl.SchedulerJobBeanImpl" modelVar="schedulerJobBean">
 				
@@ -78,25 +87,32 @@
 				                ${schedulerJobBean.shortName}
 				                <aui:input name="${jobnameparam}${index}" type="hidden" value="${schedulerJobBean.jobName}"/>
 				        </liferay-ui:search-container-column-text>
+
 				        <liferay-ui:search-container-column-text name="group-name" orderable="true" orderableProperty="shortGroup" cssClass="hidden-phone hidden-tablet" >
 				                ${schedulerJobBean.shortGroup}
 				                <aui:input name="${jobgroupparam}${index}" type="hidden" value="${schedulerJobBean.groupName}"/>
 				        </liferay-ui:search-container-column-text>
+
 				        <liferay-ui:search-container-column-text name="status" orderable="true" orderableProperty="state">
 				                ${schedulerJobBean.triggerState}
 				        </liferay-ui:search-container-column-text>
+
 				        <liferay-ui:search-container-column-text name="start-time" orderable="true" orderableProperty="startTime">
 				                <%= schedulerJobBean.getStartTime() == null ? '-' : dateFormatDateTime.format(schedulerJobBean.getStartTime()) %>
 				        </liferay-ui:search-container-column-text>
+
 				        <liferay-ui:search-container-column-text name="termination-time" orderable="true" orderableProperty="endTime" cssClass="hidden-phone hidden-tablet" >
 				                <%= schedulerJobBean.getEndTime() == null ? '-' : dateFormatDateTime.format(schedulerJobBean.getEndTime()) %>
 				        </liferay-ui:search-container-column-text>
+
 				        <liferay-ui:search-container-column-text name="previous-fire-time" orderable="true" orderableProperty="previousFireTime" cssClass="hidden-phone hidden-tablet">
 				                <%= schedulerJobBean.getPreviousFireTime() == null ? '-' : dateFormatDateTime.format(schedulerJobBean.getPreviousFireTime()) %>
 				        </liferay-ui:search-container-column-text>
+
 				        <liferay-ui:search-container-column-text name="next-fire-time" orderable="true" orderableProperty="nextFireTime">
 				                <%= schedulerJobBean.getNextFireTime() == null ? '-' : dateFormatDateTime.format(schedulerJobBean.getNextFireTime()) %>
 				        </liferay-ui:search-container-column-text>
+
 				        <liferay-ui:search-container-column-text name="storage-type" orderable="true" orderableProperty="storageType" cssClass="hidden-phone hidden-tablet">
 				                ${schedulerJobBean.storageType}
 				                <aui:input name="${jobstoragetypeparam}${index}" type="hidden" value="${schedulerJobBean.storageType}"/>
@@ -104,7 +120,11 @@
 				        
 					</liferay-ui:search-container-row>
 					
-				<liferay-ui:search-iterator displayStyle="<%= displayStyle %>" markupView="lexicon" paginate="<%= true %>" />
+				<liferay-ui:search-iterator
+					displayStyle="<%= displayStyle %>"
+					markupView="lexicon"
+					paginate="<%= true %>"
+				/>
 				
 			</liferay-ui:search-container>
 		</aui:form>
@@ -119,7 +139,11 @@ AUI().ready('aui-node', function(A) {
 	A.scheduledjobutil.setRunActionName('<%= QuartzSchedulerUtil.ACTION_RUN %>');
 	A.scheduledjobutil.setResumeActionName('<%= QuartzSchedulerUtil.ACTION_RESUME %>');
 	A.scheduledjobutil.setPauseActionName('<%= QuartzSchedulerUtil.ACTION_PAUSE %>');
-	A.all('#schedulerJobsContainer :button').on('click',A.scheduledjobutil.actionButtonHandler);
+	A.one('#schedulerJobsContainer' + ' ' + '#<%= QuartzSchedulerUtil.ACTION_RUN %>').on('click',A.scheduledjobutil.actionButtonHandler);
+	A.one('#schedulerJobsContainer' + ' ' + '#<%= QuartzSchedulerUtil.ACTION_RESUME %>').on('click',A.scheduledjobutil.actionButtonHandler);
+	A.one('#schedulerJobsContainer' + ' ' + '#<%= QuartzSchedulerUtil.ACTION_PAUSE %>').on('click',A.scheduledjobutil.actionButtonHandler);
+	A.one('#schedulerJobsContainer' + ' ' + '#<%= QuartzSchedulerUtil.ACTION_SHUTDOWN %>').on('click',A.scheduledjobutil.actionButtonHandler);
+	A.one('#schedulerJobsContainer' + ' ' + '#<%= QuartzSchedulerUtil.ACTION_REFRESH %>').on('click',A.scheduledjobutil.actionButtonHandler);
 });
 
 </aui:script>
